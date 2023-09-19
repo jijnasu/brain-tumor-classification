@@ -96,5 +96,5 @@ gr.Interface(fn=classify_image,
              inputs=gr.Image(shape=(ims, ims)),
              outputs=gr.Label(num_top_classes=num_classes),
             #  examples=["banana.jpg", "car.jpg"]
-             ).launch(share=True)
+             ).launch()
 
