@@ -4,7 +4,7 @@ import gradio as gr
 import numpy as np
 
 # all pkages
-import os
+# import os
 import random
 import tensorflow as tf
 from tensorflow import keras
