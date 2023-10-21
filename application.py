@@ -92,13 +92,13 @@ img = image.img_to_array(img)
 
 classify_image(img)
 
-gr.Interface(fn=classify_image,
-             inputs=gr.Image(shape=(ims, ims)),
-             outputs=gr.Label(num_top_classes=num_classes),
-            #  examples=["banana.jpg", "car.jpg"]
-             ).launch()
 
 
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0")
+    gr.Interface(fn=classify_image,
+                inputs=gr.Image(shape=(ims, ims)),
+                outputs=gr.Label(num_top_classes=num_classes),
+                #  examples=["banana.jpg", "car.jpg"]
+                ).launch()
+    # app.run(host="0.0.0.0")
