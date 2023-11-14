@@ -100,5 +100,6 @@ if __name__=="__main__":
                 inputs=gr.Image(shape=(ims, ims)),
                 outputs=gr.Label(num_top_classes=num_classes),
                 #  examples=["banana.jpg", "car.jpg"]
-                ).launch(server_name="0.0.0.0")
+                ).launch()
+                # ).launch(server_name="0.0.0.0")
     # app.run(host="0.0.0.0")
