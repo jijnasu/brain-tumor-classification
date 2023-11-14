@@ -108,8 +108,8 @@ img = image.img_to_array(img)
 
 classify_image(img)
 
-sns.set_theme()
-plt.style.use("seaborn-darkgrid")
+# sns.set_theme()
+# plt.style.use("seaborn-darkgrid")
 
 
 
