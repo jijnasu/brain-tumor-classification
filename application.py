@@ -1,5 +1,7 @@
 # %%blocks
 
+
+
 import gradio as gr
 import numpy as np
 
@@ -16,7 +18,21 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, GlobalAveragePooling2D
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.layers.experimental import preprocessing
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+import streamlit as st
+from streamlit.logger import get_logger
+
+LOGGER = get_logger(__name__)
+
+
+def load_and_preprocess_image(img_path, target_size=(260, 260)):
+    img = image.load_img(img_path, target_size=target_size)
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    # img_array /= 255.0  # Normalize pixel values to [0, 1]
+    return img_array
 
 def my_model():
     # data_augmentation = tf.keras.Sequential([
@@ -92,14 +108,60 @@ img = image.img_to_array(img)
 
 classify_image(img)
 
+sns.set_theme()
+plt.style.use("seaborn-darkgrid")
 
 
 
 if __name__=="__main__":
-    gr.Interface(fn=classify_image,
-                inputs=gr.Image(shape=(ims, ims)),
-                outputs=gr.Label(num_top_classes=num_classes),
-                #  examples=["banana.jpg", "car.jpg"]
-                ).launch()
-                # ).launch(server_name="0.0.0.0")
-    # app.run(host="0.0.0.0")
+
+    st.title("Brain Tumor Classification")
+    st.write("Upload an image to classify the brain tumor.")
+
+    uploaded_file = st.file_uploader("Choose a file", type=["jpg", "jpeg", "png"])
+
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption="Uploaded Image.", use_column_width=False)
+        st.write("")
+        # st.write("Classifying...")
+
+        # Load and preprocess the uploaded image
+        img_array = load_and_preprocess_image(uploaded_file)
+
+        # Classify the image
+        result = classify_image(img_array)
+        st.write("Classification Result:")
+        # st.title()
+
+        # # Display the classification result
+
+        # for class_label, confidence in result.items():
+        #     st.write(f"{class_label}: {confidence:.2%}")
+
+        # # 
+        # fig, ax = plt.subplots()
+        # sns.barplot(x=list(result.values()), y=list(result.keys()), palette="viridis", ax=ax)
+        # ax.set(xlabel="Confidence", ylabel="Class Label", title="Classification Confidence")
+        # st.pyplot(fig)
+
+        # # 
+        # st.write("Visualization:")
+        # for class_label, confidence in result.items():
+        #     st.write(f"{class_label}:")
+        #     st.bar_chart({class_label: confidence})
+
+        # 
+        # Display individual status bars for each class
+        for class_label, confidence in sorted(result.items(), key = lambda x:-x[1]):
+            st.write(f"{' '.join(class_label.split('_')).title()} : {round(confidence*100, 2)} %")
+            st.progress(confidence)
+            # 'sdkfj'.ti
+
+
+    # gr.Interface(fn=classify_image,
+    #             inputs=gr.Image(shape=(ims, ims)),
+    #             outputs=gr.Label(num_top_classes=num_classes),
+    #             #  examples=["banana.jpg", "car.jpg"]
+    #             ).launch()
+    #             # ).launch(server_name="0.0.0.0")
+    # # app.run(host="0.0.0.0")
