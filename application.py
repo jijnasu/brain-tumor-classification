@@ -18,8 +18,8 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, GlobalAveragePooling2D
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.layers.experimental import preprocessing
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 
 import streamlit as st
 from streamlit.logger import get_logger
