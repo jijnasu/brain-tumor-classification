@@ -4,6 +4,7 @@
 
 import gradio as gr
 import numpy as np
+import os
 
 # all pkages
 # import os
@@ -21,11 +22,20 @@ from tensorflow.keras.layers.experimental import preprocessing
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 
+
 import streamlit as st
+import streamlit.components.v1 as components
 from streamlit.logger import get_logger
 
 LOGGER = get_logger(__name__)
 
+gpus = tf.config.experimental.list_physical_devices('GPU')
+print('-'*50)
+print(gpus)
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
+    # print(gpu)
+print('-'*50)
 
 def load_and_preprocess_image(img_path, target_size=(260, 260)):
     img = image.load_img(img_path, target_size=target_size)
@@ -93,6 +103,8 @@ if __name__=="__main__":
 
     uploaded_file = st.file_uploader("Upload an image to classify the brain tumor", type=["jpg", "jpeg", "png"])
 
+
+
     if uploaded_file is not None:
         st.image(uploaded_file, caption="Uploaded Image.", use_column_width=False)
         st.write("")
@@ -108,6 +120,7 @@ if __name__=="__main__":
         for class_label, confidence in sorted(result.items(), key = lambda x:-x[1]):
             st.write(f"{' '.join(class_label.split('_')).title()} : {round(confidence*100, 2)} %")
             st.progress(confidence)
+
 
     st.divider()
     st.subheader('About:')
