@@ -97,7 +97,7 @@ model.build(keras.layers.InputLayer(input_shape=(ims, ims, 3)))
 
 if __name__=="__main__":
 
-    st.header("Brain Tumor Classification")
+    st.title("Brain Tumor Classification")
     st.link_button('github', 'https://github.com/jijnasu/brain-tumor-classification')
     st.divider()
 
@@ -129,6 +129,8 @@ if __name__=="__main__":
     st.subheader('About:')
     st.write('by Kumar Jijnasu')
     st.link_button('github.com/jijnasu','https://github.com/jijnasu')
+    st.write('Other projects')
+    st.link_button('Weapon Detection', 'https://weapon-detection-kj.streamlit.app')
 
 
 
