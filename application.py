@@ -18,7 +18,8 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, GlobalAveragePooling2D
 from tensorflow.keras.regularizers import l2
-from tensorflow.keras.layers.experimental import preprocessing
+# from tensorflow.keras.layers.experimental import preprocessing
+
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 
@@ -86,7 +87,8 @@ def my_model():
 
 ims = 260
 num_classes = 4
-weight_dir = './models/new_way/EfficientNetB2_2613_top_trained_fc_model.h5'
+weight_dir = '/workspaces/brain-tumor-classification/models/new_way/EfficientNetB2_2613_top_trained_fc_model.h5'
+# weight_dir = './models/new_way/EfficientNetB2_2613_top_trained_fc_model.h5'
 labels = {0: 'glioma_tumor', 1: 'meningioma_tumor', 2: 'no_tumor', 3: 'pituitary_tumor'}
 model = my_model()
 model.load_weights(weight_dir)
