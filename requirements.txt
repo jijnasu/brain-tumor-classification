@@ -3,4 +3,4 @@ altair
 numpy
 pandas
 pydeck
-streamlit
+streamlit==1.28.1
